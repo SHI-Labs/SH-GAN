@@ -22,7 +22,7 @@ This repo hosts the official implementary of:
 
 Spectral Hint GAN (**SH-GAN**) is an high-performing inpainting network enpowered by CoModGAN and novel spectral processing techniques. SH-GAN reaches state-of-the-art on FFHQ and Places2 with freeform masks.
 
-## Networks and Algorithms
+## Network and Algorithm
 
 The overall structure of our SH-GAN shows in the following figure:
 
@@ -37,9 +37,13 @@ The sturcture of our Spectral Hint Unit shows in the following graph:
 </p>
 
 Heterogeneous Filtering Explaination: 
-* 1x1 Convolution in Fourier domain leads a uniform (homogeneous) transform from one spectral space to another.
-* ReLU in Fourier domain is like a value-dependend band pass filter that zero out some frequency values.
-* We promote the **heterogeneous transforms** in spectral space, in which the frequency value transformations are depended on the frequency bands.
+<p style="font-size:11pt">
+<ul>
+  <li>1x1 Convolution in Fourier domain leads a uniform (homogeneous) transform from one spectral space to another.</li>
+  <li>ReLU in Fourier domain is like a value-dependend band pass filter that zero out some frequency values.</li>
+  <li>We promote the **heterogeneous transforms** in spectral space, in which the frequency value transformations are depended on the frequency bands.</li>
+</ul>
+</p>
 
 <p align="center">
   <img src="assets/hfilter.png" width="80%">
