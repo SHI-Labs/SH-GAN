@@ -95,7 +95,18 @@ pip install -r requirement.txt
 
 ## Evaluation
 
-coming soon
+Here are the one-line shell commends to evaluation SH-GAN on FFHQ 256/512 and Places2 256/512.
+
+```
+python main.py --experiment shgan_ffhq256_eval --gpu 0 1 2 3 4 5 6 7 --eval 99999
+python main.py --experiment shgan_ffhq512_eval --gpu 0 1 2 3 4 5 6 7 --eval 99999
+python main.py --experiment shgan_places256_eval --gpu 0 1 2 3 4 5 6 7 --eval 99999
+python main.py --experiment shgan_places512_eval --gpu 0 1 2 3 4 5 6 7 --eval 99999
+```
+
+Also you need to:
+* Download the data, put them as the directories mentioned in Data session.
+* Create ```./log/shgan_ffhq/99999_eval``` and ```./log/shgan_places2/99999_eval```
 
 ## Training
 
