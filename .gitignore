@@ -1,0 +1,10 @@
+__pycache__/
+.cache/
+.ipynb_checkpoints/
+.vscode/
+data
+data/
+log
+log/
+pretrained
+pretrained/
