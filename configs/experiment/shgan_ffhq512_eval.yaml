@@ -1,0 +1,60 @@
+env:
+  debug: false
+  cuda: true
+  dist_backend: nccl
+  dist_url: tcp://127.0.0.1:11233
+  gpu_device: all
+  matplotlib_mode: agg
+  log_root_dir: log
+  rnd_seed: 0
+  allow_tf32: false
+  cudnn_benchmark: false
+
+model: 
+  symbol: shgan
+model_g: MODEL(shgan_g512)
+model_d: MODEL(comodgan_d512)
+
+eval:
+  experiment_id: null
+  dataset: DATASET(ffhqzip_val512_inpainting)
+  exec_stage: shgan_default.eval_stage
+
+  batch_size_per_gpu: 8
+  batch_size: null
+  dataset_num_workers_per_gpu: 4
+  dataset_num_workers: null
+
+  save_code: False
+  pretrained_pth: pretrained/shgan_ffhq512.pth
+  strict_sd: true
+
+  evaluator:
+    - type: fid
+      args:
+        device: 'cuda'
+        sample_real_n : null
+        sample_fake_n : null
+        dsstat_cachefile_tag: ffhqzip_val512_inpainting
+
+    ## Uncomment this if you would like more metrics
+    # - type: lpips
+    #   args:
+    #     net: 'alex'
+    # - type: psnr
+    #   args:
+    #     for_dataset: null
+    #     scale: null
+    #     rgb_range: 1
+    # - type: ssim
+    #   args:
+    #     window_size: 11
+
+  log_dir: null
+  log_file: null
+  log_display: 10
+  log_tensorboard: false
+
+  eval_tag: shgan_ffhq512
+
+  output_sample_images: false

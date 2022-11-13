@@ -1,0 +1,124 @@
+places2:
+  symbol: places2
+  type: places2
+  super_cfg: null
+
+  root_dir: data/Places2
+
+  mode: null
+  loader: null
+  transform: []
+  estimator: null
+  formatter: null
+
+#########################################
+# training and eval like comodgan paper #
+#########################################
+# a) all images are resize exactly to the designated resolution
+# b) mask hole range from 0 to 1
+
+places2_challenge256_inpainting:
+  super_cfg: places2
+  mode: challenge
+  loader: 
+    - type: FixResolutionLoader
+      args: 
+        resolution: 256
+  formatter: 
+    type: FreeFormMaskFormatter
+    args: 
+      random_flip: true
+      resolution: 256
+      hole_range: [0.0, 1.0]
+
+places2_val256_inpainting:
+  super_cfg: places2_challenge256_inpainting
+  mode: val
+  formatter: 
+    type: FreeFormMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 256
+      hole_range: [0.0, 1.0]
+
+places2_challenge512_inpainting:
+  super_cfg: places2
+  mode: challenge
+  loader: 
+    - type: FixResolutionLoader
+      args: 
+        resolution: 512
+  formatter: 
+    type: FreeFormMaskFormatter
+    args: 
+      random_flip: true
+      resolution: 512
+      hole_range: [0.0, 1.0]
+
+places2_val512_inpainting:
+  super_cfg: places2_challenge512_inpainting
+  mode: val
+  formatter: 
+    type: FreeFormMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 512
+      hole_range: [0.0, 1.0]
+
+#######################
+# lama mask formatter #
+#######################
+
+places2_val512_inpainting_lama1:
+  super_cfg: places2_val512_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 512
+      type: thin
+
+places2_val512_inpainting_lama2:
+  super_cfg: places2_val512_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 512
+      type: medium
+
+places2_val512_inpainting_lama3:
+  super_cfg: places2_val512_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 512
+      type: thick
+
+places2_val256_inpainting_lama1:
+  super_cfg: places2_val256_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 256
+      type: thin
+
+places2_val256_inpainting_lama2:
+  super_cfg: places2_val256_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 256
+      type: medium
+
+places2_val256_inpainting_lama3:
+  super_cfg: places2_val256_inpainting
+  formatter: 
+    type: LamaMaskFormatter
+    args: 
+      random_flip: false
+      resolution: 256
+      type: thick

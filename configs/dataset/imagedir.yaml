@@ -1,0 +1,35 @@
+imagedir:
+  symbol: imagedir
+  type: imagedir
+  super_cfg: null
+
+  mode: null
+  demo: false
+  repeat: 1
+  cache: 0
+
+  loader: null
+  transform: null
+  estimator: null
+  formatter: null
+
+imagedir_pair151:
+  super_cfg: imagedir
+  root_dir: data/pair_151
+
+  loader:
+  - type: DefaultLoader
+    args: {}
+  transform: []
+  estimator: 
+    type: RemoveLargeSizeEstimator
+    args:
+      size: [1536, 768]
+  formatter:
+    type: UltraSRDemoFormatter
+    args:
+      longside_to: null
+      scale      : 4
+      resolution : null
+      width_to   : null
+      height_to  : null

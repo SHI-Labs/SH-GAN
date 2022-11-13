@@ -1,0 +1,90 @@
+stylegan2_mapping:
+  symbol: stylegan
+  type: stylegan2_mapping
+  args:
+    z_dim : 512
+    c_dim : 0
+    w_dim : 512
+    num_ws : 14
+    num_layers : 8
+    embed_features : null
+    layer_features : null
+    activation : lrelu_agc(alpha=0.2, gain=sqrt_2, clamp=256)
+    lr_multiplier : 0.01
+    w_avg_beta : 0.995
+  pretrained: null
+
+stylegan2_synthesis:
+  symbol: stylegan
+  type: stylegan2_synthesis
+  args:
+    w_dim : 512
+    resolution : 256
+    rgb_n   : 3
+    ch_base : 16384
+    ch_max  : 512
+    use_fp16_after_res : 16
+    resample_filter : [1, 3, 3, 1]
+    activation : lrelu_agc(alpha=0.2, gain=sqrt_2, clamp=256)
+  pretrained: null
+
+stylegan2_discriminator:
+  symbol: stylegan
+  type: stylegan2_discriminator
+  args:
+    resolution : 256
+    ic_n       : 3
+    ch_base    : 16384
+    ch_max     : 512
+    use_fp16_before_res : 16
+    resample_filter : [1, 3, 3, 1]
+    activation : lrelu_agc(alpha=0.2, gain=sqrt_2, clamp=256)
+    mbstd_group_size : 4
+    mbstd_c_n : 1
+    c_dim : null
+    cmap_dim : null
+  pretrained: null
+
+##########
+# res256 #
+##########
+
+stylegan2_mapping_256:
+  super_cfg: stylegan2_mapping
+
+stylegan2_synthesis_256:
+  super_cfg: stylegan2_synthesis
+
+stylegan2_discriminator_256:
+  super_cfg: stylegan2_discriminator
+
+stylegan2_generator_256:
+  symbol: stylegan
+  type: stylegan2_generator
+  args:
+    mapping: MODEL(stylegan2_mapping_256)
+    synthesis: MODEL(stylegan2_synthesis_256)
+  pretrained: null
+
+#########
+# siern #
+#########
+
+stylegan2_synthesis_sin30act:
+  super_cfg: stylegan2_synthesis
+  args:
+    activation : sine(freq=30)
+
+stylegan2_discriminator_sin30act:
+  super_cfg: stylegan2_discriminator
+  args:
+    activation : sine(freq=30)
+
+stylegan2_generator_sin30act:
+  symbol: stylegan
+  type: stylegan2_generator
+  args:
+    mapping: MODEL(stylegan2_mapping_256)
+    synthesis: MODEL(stylegan2_synthesis_sin30act)
+  pretrained: null
+

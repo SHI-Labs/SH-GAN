@@ -1,0 +1,151 @@
+comodgan_m256:
+  super_cfg: stylegan2_mapping
+  type: comodgan_mapping
+
+comodgan_m512:
+  super_cfg: comodgan_m256
+  args:
+    num_ws: 16
+
+comodgan_m1024:
+  super_cfg: comodgan_m256
+  args:
+    num_ws: 18
+
+##########
+# res512 #
+##########
+
+comodgan_e512:
+  type: comodgan_encoder
+  args:
+    resolution: 512
+    ic_n: 4
+    oc_n: 1024
+    ch_base: 32768
+    ch_max: 512
+    use_fp16_before_res: null
+    resample_filter: [1, 3, 3, 1]
+    activation: lrelu_agc(alpha=0.2, gain=sqrt_2, clamp=256) 
+    mbstd_group_size: 0
+    mbstd_c_n: 0
+    c_dim: null
+    cmap_dim: null
+    use_dropout: True
+    has_extra_final_layer: False
+
+comodgan_s512:
+  type: comodgan_synthesis
+  args:
+    w_dim : 512
+    w0_dim : 1024
+    resolution: 512
+    rgb_n   : 3
+    ch_base : 32768
+    ch_max  : 512
+    use_fp16_after_res : null
+    resample_filter : [1, 3, 3, 1]
+    activation : lrelu_agc(alpha=0.2, gain=sqrt_2, clamp=256)
+  pretrained: null
+
+comodgan_d512:
+  super_cfg: stylegan2_discriminator
+  type: comodgan_discriminator
+  args:
+    ic_n: 4
+    ch_base : 32768
+    resolution : 512
+    use_fp16_before_res : null
+
+comodgan_g512:
+  symbol: comodgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m512)
+    encoder: MODEL(comodgan_e512)
+    synthesis: MODEL(comodgan_s512)
+  pretrained: null
+
+##########
+# res256 #
+##########
+
+comodgan_e256:
+  super_cfg: comodgan_e512
+  args:
+    resolution: 256
+
+comodgan_s256:
+  super_cfg: comodgan_s512
+  args:
+    resolution: 256
+
+comodgan_d256:
+  super_cfg: comodgan_d512
+  args:
+    resolution: 256
+
+comodgan_g256:
+  symbol: comodgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m256)
+    encoder: MODEL(comodgan_e256)
+    synthesis: MODEL(comodgan_s256)
+  pretrained: null
+
+################
+# res512 small #
+################
+
+comodgan_e512_small:
+  super_cfg: comodgan_e512
+  args:
+    ch_base : 16384
+
+comodgan_s512_small:
+  super_cfg: comodgan_s512
+  args:
+    ch_base : 16384
+
+comodgan_d512_small:
+  super_cfg: comodgan_d512
+  args:
+    ch_base : 16384
+
+comodgan_g512_small:
+  symbol: comodgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m512)
+    encoder: MODEL(comodgan_e512_small)
+    synthesis: MODEL(comodgan_s512_small)
+  pretrained: null
+
+################
+# res256 small #
+################
+
+comodgan_e256_small:
+  super_cfg: comodgan_e256
+  args:
+    ch_base : 16384
+
+comodgan_s256_small:
+  super_cfg: comodgan_s256
+  args:
+    ch_base : 16384
+
+comodgan_d256_small:
+  super_cfg: comodgan_d256
+  args:
+    ch_base : 16384
+
+comodgan_g256_small:
+  symbol: comodgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m256)
+    encoder: MODEL(comodgan_e256_small)
+    synthesis: MODEL(comodgan_s256_small)
+  pretrained: null

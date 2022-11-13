@@ -1,0 +1,11 @@
+discriminator_yifan_128:
+  symbol: discriminator
+  type: discriminator_yifan_128
+  args: {}
+  pretrained: null
+
+discriminator_yifan_in_128:
+  symbol: discriminator
+  type: discriminator_yifan_in_128
+  args: {}
+  pretrained: null

@@ -1,0 +1,124 @@
+##############
+# res256/512 #
+##############
+
+shgan_e256:
+  super_cfg: comodgan_e256
+  type: shgan_encoder
+  args:
+    shu_channels: 32
+    shu_df_freedom: [2, 3]
+    shu_df_type: piecewise_linear
+    shu_input_res: 64
+    shu_lowest_res: 4
+    shu_tail_sigma_mult: 3
+    shu_gaussian_at_input_res: False
+
+shgan_g256:
+  symbol: shgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m256)
+    encoder: MODEL(shgan_e256)
+    synthesis: MODEL(comodgan_s256)
+  pretrained: null
+
+shgan_e512:
+  super_cfg: comodgan_e512
+  type: shgan_encoder
+  args:
+    shu_channels: 32
+    shu_df_freedom: [2, 3]
+    shu_df_type: piecewise_linear
+    shu_input_res: 64
+    shu_lowest_res: 4
+    shu_tail_sigma_mult: 3
+    shu_gaussian_at_input_res: False
+
+shgan_g512:
+  symbol: shgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m512)
+    encoder: MODEL(shgan_e512)
+    synthesis: MODEL(comodgan_s512)
+  pretrained: null
+
+####################
+# res256/512 small #
+####################
+
+shgan_e256_small:
+  super_cfg: comodgan_e256_small
+  type: shgan_encoder
+  args:
+    shu_channels: 32
+    shu_df_freedom: [2, 3]
+    shu_df_type: piecewise_linear
+    shu_input_res: 64
+    shu_lowest_res: 4
+    shu_tail_sigma_mult: 3
+    shu_gaussian_at_input_res: False
+
+shgan_g256_small:
+  symbol: shgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m256)
+    encoder: MODEL(shgan_e256_small)
+    synthesis: MODEL(comodgan_s256_small)
+  pretrained: null
+
+shgan_e512_small:
+  super_cfg: comodgan_e512_small
+  type: shgan_encoder
+  args:
+    shu_channels: 32
+    shu_df_freedom: [2, 3]
+    shu_df_type: piecewise_linear
+    shu_input_res: 64
+    shu_lowest_res: 4
+    shu_tail_sigma_mult: 3
+    shu_gaussian_at_input_res: False
+
+shgan_g512_small:
+  symbol: shgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_m512)
+    encoder: MODEL(comodgan_e512_small)
+    synthesis: MODEL(comodgan_s512_small)
+  pretrained: null
+
+###################
+# resolution 1024 #
+###################
+
+comodgan_mapping_1024:
+  super_cfg: comodgan_mapping
+  args:
+    num_ws: 18
+
+comodgan_s1024:
+  super_cfg: comodgan_s512
+  args:
+    resolution: 1024
+
+comodgan_d1024:
+  super_cfg: comodgan_d512
+  args:
+    resolution: 1024
+
+shgan_e1024:
+  super_cfg: shgan_e512
+  args:
+    resolution: 1024
+
+shgan_g1024:
+  symbol: shgan
+  type: comodgan_generator
+  args:
+    mapping: MODEL(comodgan_mapping_1024)
+    encoder: MODEL(shgan_e1024)
+    synthesis: MODEL(comodgan_s1024)
+  pretrained: null

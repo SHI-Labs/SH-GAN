@@ -1,0 +1,79 @@
+openimages:
+  symbol: openimages
+  type: openimages
+  super_cfg: null
+  allow_partial: true
+
+  root_dir: data/OpenImagesV6
+
+  mode: null
+  repeat: 1
+  loader: []
+  transform: []
+  estimator: null
+  formatter: null
+
+openimages_train_1024:
+  super_cfg: openimages
+  mode: train
+  loader:
+    - type: FixResolutionLoader
+      args:
+        resolution: 1024
+  formatter:
+    type: FreeFormMaskFormatter
+    args:
+      random_flip: true
+      resolution: 1024
+      hole_range: [0.0, 1.0]
+  repeat: 1
+
+openimages_val_1024:
+  super_cfg: openimages
+  mode: val
+  loader:
+    - type: FixResolutionLoader
+      args:
+        resolution: 1024
+  formatter:
+    type: FreeFormMaskFormatter
+    args:
+      random_flip: false
+      resolution: 1024
+      hole_range: [0.0, 1.0]
+  repeat: 1
+
+openimages_train_512:
+  super_cfg: openimages
+  mode: train
+  loader:
+    - type: CropLoader
+      args:
+        resolution: 512
+        max_resolution: 1024
+        random: true
+  formatter:
+    type: FreeFormMaskFormatter
+    args:
+      random_flip: true
+      resolution: 512
+      hole_range: [0.0, 1.0]
+  repeat: 1
+
+
+openimages_val_512:
+  super_cfg: openimages
+  mode: val
+  loader:
+    - type: CropLoader
+      args:
+        resolution: 512
+        max_resolution: 1024
+        random: false
+  formatter:
+    type: FreeFormMaskFormatter
+    args:
+      random_flip: false
+      resolution: 512
+      hole_range: [0.0, 1.0]
+  repeat: 1
