@@ -91,7 +91,16 @@ pip install -r requirement.txt
 
 ## Results and pretrained models
 
-
+|   |DIM|DATA|FID|LPIPS|PSNR|SSIM|Download|
+|---|---|---|---|---|---|---|---|
+|CoModGAN|256|FFHQ   |4.7755|0.2568|16.24|0.5913||
+|SH-GAN  |256|FFHQ   |4.3459|0.2542|16.37|0.5911|[link](https://drive.google.com/file/d/1XYUAA5OF1PH-ANi6TzpeVjswxF-yQZYz/view?usp=sharing)|
+|CoModGAN|512|FFHQ   |3.6996|0.2469|18.46|0.6956||
+|SH-GAN  |512|FFHQ   |3.4134|0.2447|18.43|0.6936|[link](https://drive.google.com/file/d/1wtW-nEGu_8cka7WmZ0ctxIdvr26aNFJu/view?usp=sharing)|
+|CoModGAN|256|Places2|9.3621|0.3990|14.50|0.4923||
+|SH-GAN  |256|Places2|7.5036|0.3940|14.58|0.4958|[link](https://drive.google.com/file/d/1Kw2u_9R7IVUd_W7zpEASKBa5-oX4tCqN/view?usp=sharing)|
+|CoModGAN|512|Places2|7.9735|0.3420|16.00|0.5953||
+|SH-GAN  |512|Places2|7.0277|0.3386|16.03|0.5973|[link](https://drive.google.com/file/d/1MKQF266xZ3wJ6wJ6J8S6zW_iaOJWLsND/view?usp=sharing)|
 
 ## Evaluation
 
@@ -106,7 +115,13 @@ python main.py --experiment shgan_places512_eval --gpu 0 1 2 3 4 5 6 7 --eval 99
 
 Also you need to:
 * Download the data, put them as the directories mentioned in Data session.
+* Create ```./pretrained``` and move all downloaded pretrained models in it.
 * Create ```./log/shgan_ffhq/99999_eval``` and ```./log/shgan_places2/99999_eval```
+
+Some simple things to do to resolve the issues:
+* The evaluation code caches and later relys on ```.cache/****_real_feat.npy``` for FID calculation. If it corrupts, numbers will be wrong. But you can simple remove it and the code will auto recompute one.
+* The final stage of FID computation requires CPU resource so it is normal to be slow, so be patient.
+
 
 ## Training
 
