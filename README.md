@@ -37,13 +37,13 @@ The sturcture of our Spectral Hint Unit shows in the following graph:
 </p>
 
 Heterogeneous Filtering Explaination: 
-<p style="font-size:9pt">
+<font size="3">
 <ul>
   <li>1x1 Convolution in Fourier domain leads a uniform (homogeneous) transform from one spectral space to another.</li>
   <li>ReLU in Fourier domain is like a value-dependend band pass filter that zero out some frequency values.</li>
   <li>We promote the **heterogeneous transforms** in spectral space, in which the frequency value transformations are depended on the frequency bands.</li>
 </ul>
-</p>
+</font>
 
 <p align="center">
   <img src="assets/hfilter.png" width="80%">
