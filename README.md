@@ -130,10 +130,11 @@ coming soon
 ## Citation
 
 ```
-@inproceedings{xu2022image,
+@inproceedings{xu2023image,
   title={Image Completion with Heterogeneously Filtered Spectral Hints},
-  author={Xingqian Xu, Shant Navasardyan, Vahram Tadevosyan, Andranik Sargsyan, Yadong Mu, and Humphrey Shi},
-  booktitle={WACV},
+  author={Xu, Xingqian and Navasardyan, Shant and Tadevosyan, Vahram and Sargsyan, Andranik and Mu, Yadong and Shi, Humphrey},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+  pages={4591--4601},
   year={2023}
 }
 ```
